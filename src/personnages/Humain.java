@@ -6,7 +6,7 @@ public class Humain {
 	private String boisonFavorite;
 	private int bourse;
 	
-	protected Humain(String nom, String boisonFavorite, int bourse) {
+	public Humain(String nom, String boisonFavorite, int bourse) {
 		this.nom = nom;
 		this.boisonFavorite = boisonFavorite;
 		this.bourse = bourse;
@@ -24,7 +24,7 @@ public class Humain {
 		return bourse;
 	}
 	public void direBonjour() {
-		String texte = "Bonjour ! Je m'appelle" + getNom() + " et j'aime boire du " + this.boisonFavorite;
+		String texte = "Bonjour ! Je m'appelle " + getNom() + " et j'aime boire du " + this.boisonFavorite+" .";
 		parler(texte);	
 	}
 	public void boire() {
@@ -32,37 +32,34 @@ public class Humain {
 		parler(texte);	
 	}
 	public void acheter(String bien, int prix) {
-		int cout;
+
 		switch(bien) {
-		
 		case "boisson":
-						cout= 12;
-						assezDargent(prix, cout, bien);
+						assezDargent(prix,bien);
+						break;				
+		case     "jeu":
+						assezDargent(prix,bien);
 						break;
 						
-		case     "jeu":
-						cout = 2;
-						assezDargent(prix, cout, bien);
-						break;
-		default       :
-			
+		case  "kimono":
+			            assezDargent(prix, bien);
+			            break;
+		default       :			
 					parler("J'ai pas compris votre demande");
 					break;				
 		}
 	}
 	
-	private void assezDargent(int prix, int cout, String bien) {
-		if(prix > cout) {
-			parler("J'ai"+getBourse()+" sous en poche. Je vais pouvoir m'offrir un"+ bien +" à "+prix+" sous.");
-			setBourse(getBourse()-cout);	
+	private void assezDargent(int prix, String bien) {
+		if(this.bourse > prix) {
+			parler("J'ai "+getBourse()+" sous en poche. Je vais pouvoir m'offrir un "+ bien +" à "+prix+" sous.");
+			setBourse(getBourse()-prix);	
 		}
 		else {
-			parler("Je n'ai plus que"+ getBourse() +" sous en poche. Je ne peux même pas m'offrir un "+ bien +"à "+cout+" sous.");
+			parler("Je n'ai plus que "+ getBourse() +" sous en poche. Je ne peux même pas m'offrir un "+ bien +" à "+prix+" sous.");
 		}	
 	}
-	
 	private void parler(String texte) {
 		System.out.println(texte);
 	}
-	
 }

@@ -1,10 +1,17 @@
 package histoire;
-
+import personnages.Humain;
 public class HistoireTP4 {
 	
 	
 	public static void main(String[] args) {
-		//TODO cette méthode main, sera pour le scénario.
+		
+		Humain paul = new Humain("paul","Vin Rouge",54);
+		paul.direBonjour();
+		paul.acheter("boisson", 12);
+		paul.boire();
+		paul.acheter("jeu", 2);
+		paul.acheter("kimono", 50);
+		
 	}
 
 }
