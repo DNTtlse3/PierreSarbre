@@ -6,13 +6,24 @@ public class Commercant extends Humain{
 		super(nom,boisson,argent);
 	}
 	
+	@Override
+	public void parler(String texte) {
+		System.out.println( "("+getNom()+")-"+texte);
+	}
+	
 	public void seFaireExtorquer() {
-		
+		perdreArgent(getBourse());
+		if(getBourse()<=0) {
+			parler(" J’ai tout perdu! Le monde est trop injuste...");
+		}
 		
 	}
 	
 	public void recevoir(int argent) {
-		//TODO � finir
+		gagnerArgent(argent);
+		parler(getBourse()+" sous ! Je te remercie généreux donateur...");
 	}
-
+	
+	
+	
 }

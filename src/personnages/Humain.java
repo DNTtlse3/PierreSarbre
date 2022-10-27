@@ -5,6 +5,7 @@ public class Humain {
 	private String nom;
 	private String boisonFavorite;
 	private int bourse;
+	private int force=1;
 	
 	public Humain(String nom, String boisonFavorite, int bourse) {
 		this.nom = nom;
@@ -12,8 +13,12 @@ public class Humain {
 		this.bourse = bourse;
 	}
 	
-	public void setBourse(int bourse) {
-		this.bourse = bourse;
+	public void setForce(int force) {
+		this.force = force;
+	}
+	
+	public int getForce() {
+		return force;
 	}
 	
 	public String getNom() {
@@ -24,7 +29,7 @@ public class Humain {
 		return bourse;
 	}
 	public void direBonjour() {
-		String texte = "Bonjour ! Je m'appelle " + getNom() + " et j'aime boire du " + this.boisonFavorite+" .";
+		String texte =" Bonjour ! Je m'appelle " + getNom() + " et j'aime boire du " + this.boisonFavorite+" .";
 		parler(texte);	
 	}
 	public void boire() {
@@ -50,16 +55,26 @@ public class Humain {
 		}
 	}
 	
+	public void gagnerArgent(int gain) {
+		this.bourse += gain;
+	}
+	
+	public void perdreArgent(int perte) {
+		this.bourse -= perte;
+	}
+	
 	private void assezDargent(int prix, String bien) {
-		if(this.bourse > prix) {
-			parler("J'ai "+getBourse()+" sous en poche. Je vais pouvoir m'offrir un "+ bien +" à "+prix+" sous.");
-			setBourse(getBourse()-prix);	
+		if(bourse > prix) {
+			parler("J'ai "+getBourse()+" sous en poche. Je vais pouvoir m'offrir un "+ bien +" Ã  "+prix+" sous.");
+			perdreArgent(prix);
 		}
 		else {
-			parler("Je n'ai plus que "+ getBourse() +" sous en poche. Je ne peux même pas m'offrir un "+ bien +" à "+prix+" sous.");
+			parler("Je n'ai plus que "+ getBourse() +" sous en poche. Je ne peux mÃªme pas m'offrir un "+ bien +" Ã  "+prix+" sous.");
 		}	
 	}
-	private void parler(String texte) {
-		System.out.println(texte);
+	protected void parler(String texte) {
+		System.out.println( "("+ getNom()+ ")-"+texte);
 	}
+	
+	
 }
