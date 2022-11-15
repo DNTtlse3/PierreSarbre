@@ -6,6 +6,8 @@ public class Humain {
 	private String boisonFavorite;
 	private int bourse;
 	private int force=1;
+	protected int nbConnaissance;
+	protected Humain[] memoire = new Humain[3];
 	
 	public Humain(String nom, String boisonFavorite, int bourse) {
 		this.nom = nom;
@@ -15,6 +17,10 @@ public class Humain {
 	
 	public void setForce(int force) {
 		this.force = force;
+	}
+	
+	public String getBoisonFavorite() {
+		return boisonFavorite;
 	}
 	
 	public int getForce() {
@@ -36,24 +42,6 @@ public class Humain {
 		String texte = "Mmmm, un bon verre de " + this.boisonFavorite +".... ! GLOUPS !";
 		parler(texte);	
 	}
-	public void acheter(String bien, int prix) {
-
-		switch(bien) {
-		case "boisson":
-						assezDargent(prix,bien);
-						break;				
-		case     "jeu":
-						assezDargent(prix,bien);
-						break;
-						
-		case  "kimono":
-			            assezDargent(prix, bien);
-			            break;
-		default       :			
-					parler("J'ai pas compris votre demande");
-					break;				
-		}
-	}
 	
 	public void gagnerArgent(int gain) {
 		this.bourse += gain;
@@ -63,7 +51,7 @@ public class Humain {
 		this.bourse -= perte;
 	}
 	
-	private void assezDargent(int prix, String bien) {
+	public void acheter(String bien, int prix) {
 		if(bourse > prix) {
 			parler("J'ai "+getBourse()+" sous en poche. Je vais pouvoir m'offrir un "+ bien +" à "+prix+" sous.");
 			perdreArgent(prix);
@@ -76,5 +64,27 @@ public class Humain {
 		System.out.println( "("+ getNom()+ ")-"+texte);
 	}
 	
-	
+	public void listerConnaissane() {
+		parler("Voici mes connaissance");
+		for(int k = 0 ; k < nbConnaissance; k++) {
+			parler(memoire[k].getNom());
+		}
+	}
+	private void repondre(Humain humain) {
+		direBonjour();
+		memoriser(humain);
+
+	}
+	public void faireConnaissanceAvec(Humain humain) {
+		direBonjour();
+		humain.repondre(this);
+		memoriser(humain);
+
+	}
+	private void memoriser(Humain humain) {
+		if(nbConnaissance < memoire.length) {
+			memoire[nbConnaissance] = humain;
+			nbConnaissance++;
+		}
+	}
 }
